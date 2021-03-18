@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Linq.Expressions;
+using Core.DataAccess.Abstract;
+using Entities.DTOs;
 
 namespace DataAccess.Concrete.InMemory
 {
@@ -65,7 +67,12 @@ namespace DataAccess.Concrete.InMemory
             return _cars.Where(c => c.CarId == carId).ToList();
         }
 
-        public void Update( Car carUpdate)
+        public List<CarDetailDto> GetCarDetails()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Car carUpdate)
         {
             Car carToUpdate = _cars.SingleOrDefault(c => c.CarId == carUpdate.CarId);
             carToUpdate.BrandId = carUpdate.BrandId;
@@ -84,5 +91,6 @@ namespace DataAccess.Concrete.InMemory
         {
             throw new NotImplementedException();
         }
+
     }
 }

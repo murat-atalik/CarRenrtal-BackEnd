@@ -9,12 +9,17 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarOperations();
+            //CarOperations();
 
-            ColorOperations();
+            //ColorOperations();
 
-            BrandOperations();
+            // BrandOperations();
 
+            CarManager carManager = new CarManager(new EfCarDal());
+            foreach (var car in carManager.GetCarDetails())
+            {
+                Console.WriteLine(" Car ID:"+car.CarId+" Name: "+car.CarName+" Model " + car.BrandName+" Renk: " + car.ColorName+" Günlük kira: "+car.DailyPrice);
+            }
         }
 
         private static void BrandOperations()
@@ -22,12 +27,12 @@ namespace ConsoleUI
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             Brand brand1 = new Brand()
             {
-                BrandId = 12,
+                BrandId = 13,
                 BrandName = "Jeep"
             };
             Brand brand2 = new Brand()
             {
-                BrandId = 6,
+                BrandId = 13,
                 BrandName = "Chevrolet"
             };
             Brand brand3 = new Brand()
@@ -62,12 +67,11 @@ namespace ConsoleUI
             ColorManager colorManager = new ColorManager(new EfColorDal());
             Color color1 = new Color()
             {
-                ColorId = 12,
-                ColorName = "Bordo"
+                ColorName = "Deneme"
             };
             Color color2 = new Color()
             {
-                ColorId = 12,
+                ColorId = 13,
                 ColorName = "Kahverengi"
             };
             Color color3 = new Color()
@@ -82,7 +86,7 @@ namespace ConsoleUI
                 Console.WriteLine(color.ColorId + " " + color.ColorName);
             }
             Console.WriteLine("-----Delete Operation-----");
-            colorManager.Delete(color2);
+            //colorManager.Delete(color2);
             foreach (var color in colorManager.GetAll())
             {
                 Console.WriteLine(color.ColorId + " " + color.ColorName);
@@ -102,9 +106,10 @@ namespace ConsoleUI
 
             Car car1 = new Car()
             {
-                CarId = 102,
+                
                 BrandId = 1,
                 ColorId = 1,
+                CarName="SLX",
                 ModelYear = 2077,
                 DailyPrice = 1,
                 Description = "cy"
