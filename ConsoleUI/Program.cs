@@ -9,19 +9,168 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            //CRUD Operations
             //CarOperations();
 
             //ColorOperations();
 
-            // BrandOperations();
+            //BrandOperations();
 
+            //UserOperations();
+
+            //CustomersOperations();
+
+            //Dto Operations
+            //CarDetails();
+            //CustomerDetails();
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            Rental rental1 = new Rental()
+            {
+                CarId = 5,
+                CustomerId = 4,
+                RentDate = new DateTime(2021, 3, 21)
+            };
+            Rental rental2 = new Rental()
+            {
+                Id = 3,
+                CarId = 6,
+                CustomerId = 3,
+                RentDate = new DateTime(2021, 3, 21)
+            };
+
+            rentalManager.Add(rental1);
+            Console.WriteLine(rentalManager.Add(rental1).Message);
+            foreach (var rental in rentalManager.GetAll().Data)
+            {
+                Console.WriteLine(rental.Id + " " + rental.CustomerId + " " + rental.RentDate + " " + rental.ReturnDate);
+            }
+
+            //rentalManager.Delete(rental2);
+            foreach (var rental in rentalManager.GetAll().Data)
+            {
+                Console.WriteLine(rental.Id + " " + rental.CustomerId + " " + rental.RentDate + " " + rental.ReturnDate);
+            }
+            //rentalManager.Update(rental2);
+            foreach (var rental in rentalManager.GetAll().Data)
+            {
+                Console.WriteLine(rental.Id + " " + rental.CustomerId + " " + rental.RentDate + " " + rental.ReturnDate);
+            }
+            Console.WriteLine(" ----------------");
+            Console.WriteLine(rentalManager.GetById(3).Data.RentDate);
+            Console.WriteLine("--------------------------------------");
+            foreach (var rental in rentalManager.GetRentalDetails().Data)
+            {
+                Console.WriteLine(rental.CarName + " " + rental.CarColor + "  " + rental.CarBrand + " " + rental.CompanyName + "   " + rental.CustomerFirstName + "  " + rental.CustomerLastName + "  " + rental.EmailAddress + "  " + rental.DailyPrice + " " + rental.RentDate + " " + rental.ReturnDate);
+            }
+
+
+
+
+        }
+
+        private static void CarDetails()
+        {
             CarManager carManager = new CarManager(new EfCarDal());
             foreach (var car in carManager.GetCarDetails().Data)
             {
                 Console.WriteLine(" Car ID:" + car.CarId + " Name: " + car.CarName + " Model " + car.BrandName + " Renk: " + car.ColorName + " Günlük kira: " + car.DailyPrice);
             }
+        }
 
+        private static void CustomerDetails()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            foreach (var customer in customerManager.GetCustomerDetails().Data)
+            {
+                Console.WriteLine(" Customer ID:" + customer.CustomerId + " Name: " + customer.FirstName + " Surname: " + customer.LastName + " CompanyName " + customer.CompanyName + " Email adress: " + customer.EmailAddress);
+            }
+        }
 
+        private static void CustomersOperations()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+
+            Customer customer1 = new Customer()
+            {
+                UserId = 9,
+                CompanyName = "Vesely airlines"
+
+            };
+            Customer customer2 = new Customer()
+            {
+                CustomerId = 5
+
+            }; Customer customer3 = new Customer()
+            {
+                CustomerId = 7,
+                UserId = 2,
+                CompanyName = "De dust"
+            };
+            Console.WriteLine("--- Add ---");
+            customerManager.Add(customer1);
+            foreach (var customer in customerManager.GetAll().Data)
+            {
+                Console.WriteLine(customer.CustomerId + " " + customer.UserId + " " + customer.CompanyName);
+            }
+            Console.WriteLine("--- Delete ---");
+            customerManager.Delete(customer2);
+            foreach (var customer in customerManager.GetAll().Data)
+            {
+                Console.WriteLine(customer.CustomerId + " " + customer.UserId + " " + customer.CompanyName);
+            }
+            Console.WriteLine("--- Update ---");
+            customerManager.Update(customer3);
+            foreach (var customer in customerManager.GetAll().Data)
+            {
+                Console.WriteLine(customer.CustomerId + " " + customer.UserId + " " + customer.CompanyName);
+            }
+            Console.WriteLine("--- GetId ---");
+            Console.WriteLine(customerManager.GetById(6).Data.CompanyName);
+        }
+
+        private static void UserOperations()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            User user1 = new User()
+            {
+                Id = 8,
+
+            };
+            User user2 = new User()
+            {
+                Id = 2,
+                Firstname = "igor",
+                LastName = "Vasili",
+                EmailAddress = "igorvasili@bisi.com",
+                Password = "123324"
+            }; User user3 = new User()
+            {
+
+                Firstname = "Jan",
+                LastName = "Vesely",
+                EmailAddress = "veselyairlines@bisi.com",
+                Password = "12324354534324"
+            };
+            Console.WriteLine("--- Add ---");
+            userManager.Add(user3);
+            foreach (var user in userManager.GetAll().Data)
+            {
+                Console.WriteLine(user.Id + " " + user.Firstname + " " + user.LastName + " " + user.EmailAddress);
+            }
+            Console.WriteLine("--- Delete ---");
+            userManager.Delete(user1);
+            foreach (var user in userManager.GetAll().Data)
+            {
+                Console.WriteLine(user.Id + " " + user.Firstname + " " + user.LastName + " " + user.EmailAddress);
+            }
+            Console.WriteLine("--- Update ---");
+            userManager.Update(user2);
+            foreach (var user in userManager.GetAll().Data)
+            {
+                Console.WriteLine(user.Id + " " + user.Firstname + " " + user.LastName + " " + user.EmailAddress);
+            }
+            Console.WriteLine("--- GetId ---");
+            Console.WriteLine(userManager.GetById(2).Data.EmailAddress);
         }
 
         private static void BrandOperations()
@@ -88,7 +237,7 @@ namespace ConsoleUI
                 Console.WriteLine(color.ColorId + " " + color.ColorName);
             }
             Console.WriteLine("-----Delete Operation-----");
-            //colorManager.Delete(color2);
+            colorManager.Delete(color2);
             foreach (var color in colorManager.GetAll().Data)
             {
                 Console.WriteLine(color.ColorId + " " + color.ColorName);
