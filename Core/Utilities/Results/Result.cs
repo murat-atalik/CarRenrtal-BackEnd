@@ -9,11 +9,11 @@ namespace Core.Utilities.Results
         public Result(bool succes,string message):this(succes)
 
         {
-            message = Message;
+            Message = message ;
         }
         public Result(bool succes)
         {
-            succes = Success;
+            Success = succes;
         }
 
         public bool Success { get; }
