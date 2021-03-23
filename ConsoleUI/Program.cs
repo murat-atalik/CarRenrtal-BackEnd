@@ -58,7 +58,7 @@ namespace ConsoleUI
             Console.WriteLine(" ----------------");
             Console.WriteLine(rentalManager.GetById(3).Data.RentDate);
             Console.WriteLine("--------------------------------------");
-            foreach (var rental in rentalManager.GetRentalDetails().Data)
+            foreach (var rental in rentalManager.GetAllRentalDetails().Data)
             {
                 Console.WriteLine(rental.CarName + " " + rental.CarColor + "  " + rental.CarBrand + " " + rental.CompanyName + "   " + rental.CustomerFirstName + "  " + rental.CustomerLastName + "  " + rental.EmailAddress + "  " + rental.DailyPrice + " " + rental.RentDate + " " + rental.ReturnDate);
             }
@@ -71,7 +71,7 @@ namespace ConsoleUI
         private static void CarDetails()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var car in carManager.GetCarDetails().Data)
+            foreach (var car in carManager.GetAllCarDetails().Data)
             {
                 Console.WriteLine(" Car ID:" + car.CarId + " Name: " + car.CarName + " Model " + car.BrandName + " Renk: " + car.ColorName + " Günlük kira: " + car.DailyPrice);
             }
@@ -80,7 +80,7 @@ namespace ConsoleUI
         private static void CustomerDetails()
         {
             CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
-            foreach (var customer in customerManager.GetCustomerDetails().Data)
+            foreach (var customer in customerManager.GetAllCustomerDetails().Data)
             {
                 Console.WriteLine(" Customer ID:" + customer.CustomerId + " Name: " + customer.FirstName + " Surname: " + customer.LastName + " CompanyName " + customer.CompanyName + " Email adress: " + customer.EmailAddress);
             }

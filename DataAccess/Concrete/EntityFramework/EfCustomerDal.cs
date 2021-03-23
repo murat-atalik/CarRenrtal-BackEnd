@@ -12,7 +12,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCustomerDal : EfEntityRepositoryBase<Customer, MyCarDbContext>, ICustomerDal
     {
-        List<CustomerDetailDto> ICustomerDal.GetCustomerDetails()
+        List<CustomerDetailDto> ICustomerDal.GetAllCustomerDetails()
         {
             using (MyCarDbContext context = new MyCarDbContext())
             {
