@@ -23,20 +23,20 @@ namespace ConsoleUI
             //Dto Operations
             //CarDetails();
             //CustomerDetails();
-            RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            Rental rental1 = new Rental()
-            {
-                CarId = 4,
-                CustomerId = 4,
-                RentDate = new DateTime(2021, 3, 21)
-            };
+            //RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            //Rental rental1 = new Rental()
+            //{
+            //    CarId = 999,
+            //    CustomerId = 4,
+            //    RentDate = new DateTime(2021, 3, 21)
+            //};
 
-            rentalManager.Add(rental1);
-            //Console.WriteLine(rentalManager.Add(rental1).Message);
-            foreach (var rental in rentalManager.GetAll().Data)
-            {
-                Console.WriteLine(rental.Id + " " + rental.CarId + " " + rental.CustomerId + " " + rental.RentDate + " " + rental.ReturnDate);
-            }
+            //rentalManager.Add(rental1);
+            ////Console.WriteLine(rentalManager.Add(rental1).Message);
+            //foreach (var rental in rentalManager.GetAll().Data)
+            //{
+            //    Console.WriteLine(rental.Id + " " + rental.CarId + " " + rental.CustomerId + " " + rental.RentDate + " " + rental.ReturnDate);
+            //}
 
             ////rentalManager.Delete(rental2);
             //foreach (var rental in rentalManager.GetAll().Data)
@@ -55,23 +55,25 @@ namespace ConsoleUI
             //{
             //    Console.WriteLine(rental.CarName + " " + rental.CarColor + "  " + rental.CarBrand + " " + rental.CompanyName + "   " + rental.CustomerFirstName + "  " + rental.CustomerLastName + "  " + rental.EmailAddress + "  " + rental.DailyPrice + " " + rental.RentDate + " " + rental.ReturnDate);
             //}
-            //CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
-            //foreach (var item in customerManager.GetAll().Data)
-            //{
-            //    Console.WriteLine(item.CustomerId + " UserId: " + item.UserId + " CN:" + item.CompanyName);
-            //}
-            //Customer customer1 = new Customer()
-            //{CustomerId=2013,
-            //    UserId = 3,
-            //    CompanyName = "Vesely airlines"
+            ColorManager colorManager = new ColorManager(new EfColorDal());
 
-            //}; Customer customer2 = new Customer()
+            Color color1 = new Color()
+            {
+                             
+                ColorName=""
+
+            };
+            //Customer customer2 = new Customer()
             //{CustomerId=2015,
             //    UserId = 1004,
             //    CompanyName = "Vesely airlines"
 
             //};
-            //customerManager.Update(customer1);
+            colorManager.Add(color1);
+            foreach (var item in colorManager.GetAll().Data)
+            {
+                Console.WriteLine(item.ColorId+" "+item.ColorName);
+            }
             // customerManager.Delete(customer2);
 
         }
