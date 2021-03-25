@@ -26,45 +26,53 @@ namespace ConsoleUI
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
             Rental rental1 = new Rental()
             {
-                CarId = 5,
+                CarId = 4,
                 CustomerId = 4,
-                RentDate = new DateTime(2021, 3, 21)
-            };
-            Rental rental2 = new Rental()
-            {
-                Id = 3,
-                CarId = 6,
-                CustomerId = 3,
                 RentDate = new DateTime(2021, 3, 21)
             };
 
             rentalManager.Add(rental1);
-            Console.WriteLine(rentalManager.Add(rental1).Message);
+            //Console.WriteLine(rentalManager.Add(rental1).Message);
             foreach (var rental in rentalManager.GetAll().Data)
             {
-                Console.WriteLine(rental.Id + " " + rental.CustomerId + " " + rental.RentDate + " " + rental.ReturnDate);
+                Console.WriteLine(rental.Id + " " + rental.CarId + " " + rental.CustomerId + " " + rental.RentDate + " " + rental.ReturnDate);
             }
 
-            //rentalManager.Delete(rental2);
-            foreach (var rental in rentalManager.GetAll().Data)
-            {
-                Console.WriteLine(rental.Id + " " + rental.CustomerId + " " + rental.RentDate + " " + rental.ReturnDate);
-            }
-            //rentalManager.Update(rental2);
-            foreach (var rental in rentalManager.GetAll().Data)
-            {
-                Console.WriteLine(rental.Id + " " + rental.CustomerId + " " + rental.RentDate + " " + rental.ReturnDate);
-            }
-            Console.WriteLine(" ----------------");
-            Console.WriteLine(rentalManager.GetById(3).Data.RentDate);
-            Console.WriteLine("--------------------------------------");
-            foreach (var rental in rentalManager.GetAllRentalDetails().Data)
-            {
-                Console.WriteLine(rental.CarName + " " + rental.CarColor + "  " + rental.CarBrand + " " + rental.CompanyName + "   " + rental.CustomerFirstName + "  " + rental.CustomerLastName + "  " + rental.EmailAddress + "  " + rental.DailyPrice + " " + rental.RentDate + " " + rental.ReturnDate);
-            }
+            ////rentalManager.Delete(rental2);
+            //foreach (var rental in rentalManager.GetAll().Data)
+            //{
+            //    Console.WriteLine(rental.Id + " " + rental.CustomerId + " " + rental.RentDate + " " + rental.ReturnDate);
+            //}
+            ////rentalManager.Update(rental2);
+            //foreach (var rental in rentalManager.GetAll().Data)
+            //{
+            //    Console.WriteLine(rental.Id + " " + rental.CustomerId + " " + rental.RentDate + " " + rental.ReturnDate);
+            //}
+            //Console.WriteLine(" ----------------");
+            //Console.WriteLine(rentalManager.GetById(3).Data.RentDate);
+            //Console.WriteLine("--------------------------------------");
+            //foreach (var rental in rentalManager.GetAllRentalDetails().Data)
+            //{
+            //    Console.WriteLine(rental.CarName + " " + rental.CarColor + "  " + rental.CarBrand + " " + rental.CompanyName + "   " + rental.CustomerFirstName + "  " + rental.CustomerLastName + "  " + rental.EmailAddress + "  " + rental.DailyPrice + " " + rental.RentDate + " " + rental.ReturnDate);
+            //}
+            //CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            //foreach (var item in customerManager.GetAll().Data)
+            //{
+            //    Console.WriteLine(item.CustomerId + " UserId: " + item.UserId + " CN:" + item.CompanyName);
+            //}
+            //Customer customer1 = new Customer()
+            //{CustomerId=2013,
+            //    UserId = 3,
+            //    CompanyName = "Vesely airlines"
 
+            //}; Customer customer2 = new Customer()
+            //{CustomerId=2015,
+            //    UserId = 1004,
+            //    CompanyName = "Vesely airlines"
 
-
+            //};
+            //customerManager.Update(customer1);
+            // customerManager.Delete(customer2);
 
         }
 
@@ -257,10 +265,10 @@ namespace ConsoleUI
 
             Car car1 = new Car()
             {
-                
+
                 BrandId = 1,
                 ColorId = 1,
-                CarName="SLX",
+                CarName = "SLX",
                 ModelYear = 2077,
                 DailyPrice = 1,
                 Description = "cy"
