@@ -143,12 +143,12 @@ namespace ConsoleUI
             UserManager userManager = new UserManager(new EfUserDal());
             User user1 = new User()
             {
-                Id = 8,
+                UserId = 8,
 
             };
             User user2 = new User()
             {
-                Id = 2,
+                UserId = 2,
                 Firstname = "igor",
                 LastName = "Vasili",
                 EmailAddress = "igorvasili@bisi.com",
@@ -165,19 +165,19 @@ namespace ConsoleUI
             userManager.Add(user3);
             foreach (var user in userManager.GetAll().Data)
             {
-                Console.WriteLine(user.Id + " " + user.Firstname + " " + user.LastName + " " + user.EmailAddress);
+                Console.WriteLine(user.UserId + " " + user.Firstname + " " + user.LastName + " " + user.EmailAddress);
             }
             Console.WriteLine("--- Delete ---");
             userManager.Delete(user1);
             foreach (var user in userManager.GetAll().Data)
             {
-                Console.WriteLine(user.Id + " " + user.Firstname + " " + user.LastName + " " + user.EmailAddress);
+                Console.WriteLine(user.UserId + " " + user.Firstname + " " + user.LastName + " " + user.EmailAddress);
             }
             Console.WriteLine("--- Update ---");
             userManager.Update(user2);
             foreach (var user in userManager.GetAll().Data)
             {
-                Console.WriteLine(user.Id + " " + user.Firstname + " " + user.LastName + " " + user.EmailAddress);
+                Console.WriteLine(user.UserId + " " + user.Firstname + " " + user.LastName + " " + user.EmailAddress);
             }
             Console.WriteLine("--- GetId ---");
             Console.WriteLine(userManager.GetById(2).Data.EmailAddress);
