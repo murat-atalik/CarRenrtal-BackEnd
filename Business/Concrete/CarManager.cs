@@ -9,6 +9,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -25,7 +26,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-                ValidationTool.Validate(new CarValidator(), car);
+               
                 _carDal.Add(car);
                 return new SuccessResult(Messages.CarAdded);
             
@@ -55,10 +56,11 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
-            //ValidationTool.Validate(new CarValidator(), car);
+
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdate);
         }
+        
     }
 }
 

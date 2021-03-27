@@ -8,6 +8,7 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -48,9 +49,18 @@ namespace Business.Concrete
         [ValidationAspect(typeof(BrandValidator))]
         public IResult Update(Brand brand)
         {
-           // ValidationTool.Validate(new BrandValidator(), brand);
+           
             _brandDal.Update(brand);
             return new SuccessResult(Messages.BrandUpdated);
+        }
+        private IResult CheckBrandExists(string brandName)
+        {
+            var result = _brandDal.GetAll().Where(b=>b.BrandName==brandName);
+            if (result!=null)
+            {
+                return new ErrorResult(Messages.BrandNameAlreadyExists);
+            }
+            return new SuccessResult();
         }
     }
 }

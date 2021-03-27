@@ -2,6 +2,7 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Business;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -9,6 +10,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -16,18 +18,25 @@ namespace Business.Concrete
     public class CustomerManager : ICustomerService
     {
         ICustomerDal _customerDal;
+        IUserService _userService;
 
-        public CustomerManager(ICustomerDal customerDal)
+        public CustomerManager(ICustomerDal customerDal,IUserService userService)
         {
             _customerDal = customerDal;
+            _userService = userService;
         }
         [ValidationAspect(typeof(CustomerValidator))]
         public IResult Add(Customer customer)
         {
-            //ValidationTool.Validate(new CustomerValidator(), customer);       
+            IResult result = BusinessRules.Run(CheckIfUserIdExists(customer.UserId),
+                CheckUniqeUser(customer.UserId));
+            if (result!=null)
+            {
+                return result;
+            }
             _customerDal.Add(customer);
             return new SuccessResult(Messages.CustomerAdded);
-          
+
         }
 
         public IResult Delete(Customer customer)
@@ -53,9 +62,35 @@ namespace Business.Concrete
 
         public IResult Update(Customer customer)
         {
-            
+            IResult result = BusinessRules.Run(CheckIfUserIdExists(customer.UserId),
+               CheckUniqeUser(customer.UserId));
+            if (result != null)
+            {
+                return result;
+            }
             _customerDal.Update(customer);
             return new SuccessResult(Messages.CustomerUpdated);
+        }
+
+        private IResult CheckUniqeUser(int userId)
+        {
+            var result = _customerDal.GetAll().Where(c=>c.UserId == userId).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.CustomerMustUniqe);
+            }
+            return new SuccessResult();
+
+        }
+
+        private IResult CheckIfUserIdExists(int userId)
+        {
+            var result = _userService.GetById(userId).Data;
+            if (result== null)
+            {
+                return new ErrorResult(Messages.UserIdNotExist);
+            }
+            return new SuccessResult();
         }
     }
 }

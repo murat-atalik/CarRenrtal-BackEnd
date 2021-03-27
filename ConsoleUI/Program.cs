@@ -89,7 +89,7 @@ namespace ConsoleUI
 
         private static void CustomerDetails()
         {
-            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal(),new UserManager(new EfUserDal()));
             foreach (var customer in customerManager.GetAllCustomerDetails().Data)
             {
                 Console.WriteLine(" Customer ID:" + customer.CustomerId + " Name: " + customer.FirstName + " Surname: " + customer.LastName + " CompanyName " + customer.CompanyName + " Email adress: " + customer.EmailAddress);
@@ -98,7 +98,7 @@ namespace ConsoleUI
 
         private static void CustomersOperations()
         {
-            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal(),new UserManager(new EfUserDal()));
 
             Customer customer1 = new Customer()
             {

@@ -2,12 +2,14 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Business;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -25,6 +27,12 @@ namespace Business.Concrete
         [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
+            IResult result = BusinessRules.Run(CheckIfEmailAddressExists(user.EmailAddress));
+
+            if (result != null)
+            {
+                return result;
+            }
             _userDal.Add(user);
             return new SuccessResult(Messages.UserAdded);
         }
@@ -45,10 +53,28 @@ namespace Business.Concrete
             return new SuccessDataResult<User>(_userDal.Get(u => u.UserId == userId), Messages.UserListed);
         }
 
+        [ValidationAspect(typeof(User))]
         public IResult Update(User user)
         {
+            IResult result = BusinessRules.Run(CheckIfEmailAddressExists(user.EmailAddress));
+
+            if (result!=null)
+            {
+                return result;
+            }
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
         }
+        private IResult CheckIfEmailAddressExists(string emailAddress)
+        {
+            var result = _userDal.GetAll().Where(u=>u.EmailAddress==emailAddress);
+            if (result!=null)
+            {
+                return new ErrorResult(Messages.EmailAlreadyExists);
+            }
+            return new SuccessResult();
+        }
+
+      
     }
 }
