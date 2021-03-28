@@ -62,5 +62,6 @@ namespace Business.Constants
         public static string CarImagesListed = "Seçilen aracın  resimleri listelendi.";
         public static string CarImageLimitExceeded = "Maksimum resim yükleme limitine ulaşıldı.";
         public static string CarImageDefault = "Araç resmi bulunmamaktadır.";
+        public static string ImageNotExists="Fotoğraf bulunamadı";
     }
 }
