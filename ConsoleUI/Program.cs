@@ -1,4 +1,5 @@
 ﻿using Business.Concrete;
+using Core.Entities.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
@@ -144,7 +145,6 @@ namespace ConsoleUI
             User user1 = new User()
             {
                 UserId = 8,
-
             };
             User user2 = new User()
             {
@@ -152,14 +152,12 @@ namespace ConsoleUI
                 Firstname = "igor",
                 LastName = "Vasili",
                 EmailAddress = "igorvasili@bisi.com",
-                Password = "123324"
+              
             }; User user3 = new User()
             {
-
                 Firstname = "Jan",
                 LastName = "Vesely",
                 EmailAddress = "veselyairlines@bisi.com",
-                Password = "12324354534324"
             };
             Console.WriteLine("--- Add ---");
             userManager.Add(user3);

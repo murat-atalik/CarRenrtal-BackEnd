@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -44,6 +45,7 @@ namespace Business.Constants
         public static string CustomerUpdated = "Müşteri güncellendi.";
         public static string CustomerListed = "Müşteriler listelendi.";
         public static string UserIdNotExist = "Bu id'ye sahip bir kullanıcı yoktur.";
+        public static string UserNotExist = "Bu bilgilere sahip kullanıcı yoktur.";
 
         //Rental messages
         public static string RentalAdded = "Araç kiralama eklendi.";
@@ -63,5 +65,12 @@ namespace Business.Constants
         public static string CarImageLimitExceeded = "Maksimum resim yükleme limitine ulaşıldı.";
         public static string CarImageDefault = "Araç resmi bulunmamaktadır.";
         public static string ImageNotExists="Fotoğraf bulunamadı";
+
+        public static string UserExists = "Kullanıcı mevcut.";
+
+        public static string UserLogin = "Sisteme giriş başarılı";
+
+        public static string WrongPassword = "Şifre hatalı.";
+        public static string AccessTokenCreated = "Access token oluşturuldu";
     }
 }

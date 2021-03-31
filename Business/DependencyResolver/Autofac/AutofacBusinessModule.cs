@@ -6,6 +6,7 @@ using DataAccess.Concrete.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Core.Utilities.Security.JWT;
 
 namespace Business.DependencyResolver.Autofac
 {
@@ -35,6 +36,10 @@ namespace Business.DependencyResolver.Autofac
 
             builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
             builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
+
+            builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
+            
 
         }
     }
