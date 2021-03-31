@@ -76,12 +76,25 @@ namespace Business.Concrete
 
         public IDataResult<List<CarImage>> GetAllCarImages(int Id)
         {
-            IResult result = BusinessRules.Run(CheckIfCarImageImageCountNull(Id),CheckIfCarExists(Id));
-            if (result != null)
+            IResult carResult = BusinessRules.Run(CheckIfCarExists(Id));
+            IResult imageResult = BusinessRules.Run(CheckIfCarImageImageCountNull(Id));
+            
+            if (carResult != null)
             {
-                return new ErrorDataResult<List<CarImage>>(result.Message);
+                   
+                    return new ErrorDataResult<List<CarImage>>(carResult.Message);
+                
             }
-            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == Id), Messages.CarImagesListed);
+
+            if (imageResult != null)
+            {
+                string path = Environment.CurrentDirectory + @"\Images\DefaultImage.png";
+                List<CarImage> carImage = new List<CarImage>();
+                carImage.Add(new CarImage { CarId = Id, ImagePath = path, ImageDate = DateTime.Now });
+                return new SuccessDataResult<List<CarImage>>(carImage, Messages.CarImageDefault);
+
+            }
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == Id),Messages.CarImagesListed);
         }
 
 
@@ -98,14 +111,11 @@ namespace Business.Concrete
         }
         private IDataResult<List<CarImage>> CheckIfCarImageImageCountNull(int carId)
         {
-            string path = Environment.CurrentDirectory + @"\Images\DefaultImage.png";
+            
             var result = _carImageDal.GetAll(c => c.CarId == carId).Any();
-
             if (!result)
             {
-                List<CarImage> carImage = new List<CarImage>();
-                carImage.Add(new CarImage { CarId = carId, ImagePath = path, ImageDate = DateTime.Now });
-                return new SuccessDataResult<List<CarImage>>(carImage);
+                return new ErrorDataResult<List<CarImage>>(Messages.CarImageDefault);
             }
         
             return new SuccessDataResult<List<CarImage>>();
@@ -131,4 +141,6 @@ namespace Business.Concrete
 
     }
 }
+
+
 

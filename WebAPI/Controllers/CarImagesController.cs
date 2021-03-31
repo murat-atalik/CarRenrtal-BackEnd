@@ -88,10 +88,9 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            else
-            {
-                return BadRequest(result);
-            }
+           
+            return BadRequest(result);
+            
         }
 
         [HttpGet("getallcarimages")]
@@ -102,10 +101,8 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            else
-            {
-                return BadRequest(result);
-            }
+            return BadRequest(result);
+            
         }
     }
 }
