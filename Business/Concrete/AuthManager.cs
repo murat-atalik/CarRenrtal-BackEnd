@@ -31,8 +31,7 @@ namespace Business.Concrete
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
-            IResult result = BusinessRules.Run(CheckUserIfExists(userForLoginDto.Email),
-                PasswordCheck(userForLoginDto.Password, userForLoginDto.Email));
+            IResult result = BusinessRules.Run(PasswordCheck(userForLoginDto.Password, userForLoginDto.Email));
             if (result != null)
             {
                 return new ErrorDataResult<User>(result.Message);
@@ -64,8 +63,8 @@ namespace Business.Concrete
 
         public IResult UserExists(string email)
         {
-            var result = _userService.GetByEmail(email).Data;
-            if (result == null)
+            var result = _userService.GetByEmail(email);
+            if (!result.Success)
             {
                 return new ErrorResult(Messages.UserNotExist);
             }
@@ -73,16 +72,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.UserExists);
         }
 
-        private IDataResult<User> CheckUserIfExists(string email)
-        {
-            var result = _userService.GetByEmail(email).Data;
-            if (result == null)
-            {
-                return new ErrorDataResult<User>(Messages.UserNotExist);
-            }
-
-            return new SuccessDataResult<User>();
-        }
+       
 
         private IResult PasswordCheck(string password, string email)
         {
