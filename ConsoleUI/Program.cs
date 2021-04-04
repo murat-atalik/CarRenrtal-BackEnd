@@ -149,13 +149,13 @@ namespace ConsoleUI
             User user2 = new User()
             {
                 UserId = 2,
-                Firstname = "igor",
+                FirstName = "igor",
                 LastName = "Vasili",
                 EmailAddress = "igorvasili@bisi.com",
               
             }; User user3 = new User()
             {
-                Firstname = "Jan",
+                FirstName = "Jan",
                 LastName = "Vesely",
                 EmailAddress = "veselyairlines@bisi.com",
             };
@@ -163,19 +163,19 @@ namespace ConsoleUI
             userManager.Add(user3);
             foreach (var user in userManager.GetAll().Data)
             {
-                Console.WriteLine(user.UserId + " " + user.Firstname + " " + user.LastName + " " + user.EmailAddress);
+                Console.WriteLine(user.UserId + " " + user.FirstName + " " + user.LastName + " " + user.EmailAddress);
             }
             Console.WriteLine("--- Delete ---");
             userManager.Delete(user1);
             foreach (var user in userManager.GetAll().Data)
             {
-                Console.WriteLine(user.UserId + " " + user.Firstname + " " + user.LastName + " " + user.EmailAddress);
+                Console.WriteLine(user.UserId + " " + user.FirstName + " " + user.LastName + " " + user.EmailAddress);
             }
             Console.WriteLine("--- Update ---");
             userManager.Update(user2);
             foreach (var user in userManager.GetAll().Data)
             {
-                Console.WriteLine(user.UserId + " " + user.Firstname + " " + user.LastName + " " + user.EmailAddress);
+                Console.WriteLine(user.UserId + " " + user.FirstName + " " + user.LastName + " " + user.EmailAddress);
             }
             Console.WriteLine("--- GetId ---");
             Console.WriteLine(userManager.GetById(2).Data.EmailAddress);

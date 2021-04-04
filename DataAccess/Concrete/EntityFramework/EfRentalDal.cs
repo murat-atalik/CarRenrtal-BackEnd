@@ -29,7 +29,7 @@ namespace DataAccess.Concrete.EntityFramework
                              select new RentalDetailDto
                              {
                                  RentalId = r.RentalId,
-                                 CustomerFirstName = u.Firstname,
+                                 CustomerFirstName = u.FirstName,
                                  CustomerLastName = u.LastName,
                                  CompanyName = c.CompanyName,
                                  EmailAddress = u.EmailAddress,

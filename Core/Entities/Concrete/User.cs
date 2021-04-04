@@ -8,7 +8,7 @@ namespace Core.Entities.Concrete
     public class User:IEntity
     {
         public int UserId { get; set; }
-        public string Firstname { get; set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
         public byte[] PasswordSalt { get; set; }

@@ -50,7 +50,7 @@ namespace Business.Concrete
             var user = new User()
             {
                 EmailAddress = userForRegisterDto.Email,
-                Firstname = userForRegisterDto.FirstName,
+                FirstName = userForRegisterDto.FirstName,
                 LastName = userForRegisterDto.LastName,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
