@@ -1,68 +1,62 @@
 ﻿using Core.Utilities.Results;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
-namespace Core.Utilities.Helper
+public class FileHelper
 {
-    public class FileHelper
+    public static string Add(IFormFile file)
     {
-        public static string Add([FromBody] IFormFile file)
+        string path = Environment.CurrentDirectory + @"\wwwroot";
+        var sourcePath = Path.GetTempFileName();
+        if (file.Length > 0)
         {
-            var result = newPath(file);
-            var sourcePath = Path.GetTempFileName();
-            if (file.Length > 0)
+            using (var stream = new FileStream(sourcePath, FileMode.Create))
             {
-                using (var stream = new FileStream(sourcePath, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
+                file.CopyTo(stream);
             }
-
-
-            File.Move(sourcePath, result);
-            return result;
-
         }
-
-        public static string Update(string sourcePath, IFormFile file)
+        var result = newPath(file);
+        File.Move(sourcePath, path + result);
+        return result.Replace("\\", "/");
+    }
+    public static IResult Delete(string path)
+    {
+        string path2 = Environment.CurrentDirectory + @"\wwwroot";
+        path = path.Replace("/", "\\");
+        try
         {
-            var result = newPath(file);
-            if (sourcePath.Length > 0)
-            {
-                using (var stream = new FileStream(result, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
-            }
-            File.Delete(sourcePath);
-            return result;
+            File.Delete(path2 + path);
         }
-        public static IResult Delete(string path)
+        catch (Exception exception)
         {
-            try
-            {
-                File.Delete(path);
-            }
-            catch (Exception exception)
-            {
-                return new ErrorResult(exception.Message);
-            }
-            return new SuccessResult();
+            return new ErrorResult(exception.Message);
         }
-
-        public static string newPath([FromBody] IFormFile file)
+        return new SuccessResult();
+    }
+    public static string Update(string sourcePath, IFormFile file)
+    {
+        string path = Environment.CurrentDirectory + @"\wwwroot";
+        var result = newPath(file);
+        if (sourcePath.Length > 0)
         {
-            FileInfo fileInfo = new FileInfo(file.FileName);
-            string fileExtension = fileInfo.Extension;
-            string path = Environment.CurrentDirectory + @"\wwwroot\Images\";
-            var newPath = Guid.NewGuid().ToString() + fileExtension;
-            string result = $@"{path}\{newPath}";
-            return result;
-
+            using (var stream = new FileStream(path + result, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
         }
+        File.Delete(path + sourcePath);
+        return result.Replace("\\", "/");
+    }
+    public static string newPath(IFormFile file)
+    {
+        FileInfo ff = new FileInfo(file.FileName);
+        string fileExtension = ff.Extension;
+
+
+        var newPath = Guid.NewGuid().ToString() + fileExtension;
+
+
+        return @"\Images\" + newPath;
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Core.Business;
-using Core.Utilities.Helper;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -16,11 +15,11 @@ namespace Business.Concrete
     class CarImageManager:ICarImageService
     {
         ICarImageDal _carImageDal;
-        ICarService _carService;
-        public CarImageManager(ICarImageDal carImageDal,ICarService carService)
+
+        public CarImageManager(ICarImageDal carImageDal)
         {
             _carImageDal = carImageDal;
-            _carService = carService;
+
         }
 
         public IResult Add(IFormFile file, CarImage carImage)
@@ -76,19 +75,19 @@ namespace Business.Concrete
 
         public IDataResult<List<CarImage>> GetAllCarImages(int Id)
         {
-            IResult carResult = BusinessRules.Run(CheckIfCarExists(Id));
+          //  IResult carResult = BusinessRules.Run(CheckIfCarExists(Id));
             IResult imageResult = BusinessRules.Run(CheckIfCarImageImageCountNull(Id));
             
-            if (carResult != null)
-            {
+            //if (carResult != null)
+            //{
                    
-                    return new ErrorDataResult<List<CarImage>>(carResult.Message);
+            //        return new ErrorDataResult<List<CarImage>>(carResult.Message);
                 
-            }
+            //}
 
             if (imageResult != null)
             {
-                string path = Environment.CurrentDirectory + @"\Images\DefaultImage.png";
+                string path = @"\Images\DefaultImage.png";
                 List<CarImage> carImage = new List<CarImage>();
                 carImage.Add(new CarImage { CarId = Id, ImagePath = path, ImageDate = DateTime.Now });
                 return new SuccessDataResult<List<CarImage>>(carImage, Messages.CarImageDefault);
@@ -120,15 +119,15 @@ namespace Business.Concrete
         
             return new SuccessDataResult<List<CarImage>>();
         }
-        private IResult CheckIfCarExists(int carId)
-        {
-            var result = _carService.GetById(carId).Data;
-            if (result==null)
-            {
-                return new ErrorResult(Messages.CarNotExists);
-            }
-            return new SuccessResult();
-        }
+        //private IResult CheckIfCarExists(int carId)
+        //{
+        //    var result = _carService.GetById(carId).Data;
+        //    if (result==null)
+        //    {
+        //        return new ErrorResult(Messages.CarNotExists);
+        //    }
+        //    return new SuccessResult();
+        //}
         private IDataResult<CarImage> CheckIfImageExists(int imageId)
         {
             var result = _carImageDal.Get(c=>c.CarImageId==imageId);

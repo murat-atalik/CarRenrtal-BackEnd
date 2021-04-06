@@ -10,7 +10,7 @@ using Entities.DTOs;
 
 namespace DataAccess.Concrete.InMemory
 {
-    public class InMemoryICarDal : ICarDal
+    public class InMemoryICarDal // : ICarDal
     {
         List<Car> _cars;
 
@@ -87,10 +87,7 @@ namespace DataAccess.Concrete.InMemory
             throw new NotImplementedException();
         }
 
-        Car IEntityRepository<Car>.Get(Expression<Func<Car, bool>> filter)
-        {
-            throw new NotImplementedException();
-        }
+
 
     }
 }
