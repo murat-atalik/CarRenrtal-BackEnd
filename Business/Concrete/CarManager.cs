@@ -78,7 +78,7 @@ namespace Business.Concrete
         {
             IResult result = BusinessRules.Run(CheckIfImageExists(carId));
 
-            if (result!=null)
+            if (result != null)
             {
                 var car = _carDal.GetCarDetails(c => c.CarId == carId);
                 string path = @"\Images\DefaultImage.png";
@@ -92,27 +92,57 @@ namespace Business.Concrete
 
         public IDataResult<List<CarDetailDto>> GetAllCarDetailsByBrand(int brandId)
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails(c => c.BrandId == brandId), Messages.CarsDetailsListed);
+            List<CarDetailDto> carDetailDtos = new List<CarDetailDto>();
+            string path = @"\Images\DefaultImage.png";
+            var cars = _carDal.GetAllCarDetails(c => c.BrandId == brandId);
+
+            foreach (var car in cars)
+            {
+                if (car.ImagePath == null)
+                {
+                    car.CarImageId = 0;
+                    car.ImagePath = path;
+                    car.ImageDate = DateTime.Now;
+                }
+                carDetailDtos.Add(car);
+            }
+            return new SuccessDataResult<List<CarDetailDto>>(carDetailDtos, Messages.CarImagesListed);
+
         }
         public IDataResult<List<CarDetailDto>> GetAllCarDetailsByColor(int colorId)
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails(c => c.ColorId == colorId), Messages.CarsDetailsListed);
+            List<CarDetailDto> carDetailDtos = new List<CarDetailDto>();
+            string path = @"\Images\DefaultImage.png";
+            var cars = _carDal.GetAllCarDetails(c => c.ColorId == colorId);
+
+            foreach (var car in cars)
+            {
+                if (car.ImagePath == null)
+                {
+                    car.CarImageId = 0;
+                    car.ImagePath = path;
+                    car.ImageDate = DateTime.Now;
+                }
+                carDetailDtos.Add(car);
+            }
+            return new SuccessDataResult<List<CarDetailDto>>(carDetailDtos, Messages.CarImagesListed);
         }
         private IResult CheckIfImageExists(int carId)
         {
-            
+
             var car = _carImageService.GetAllCarImages(carId).Data;
-            
-                if (car[0].CarImageId== 0)
-                {
-                    return new ErrorResult(Messages.CarImageDefault);
-                }
-            
+
+            if (car[0].CarImageId == 0)
+            {
+                return new ErrorResult(Messages.CarImageDefault);
+            }
+
 
             return new SuccessResult();
         }
+
+
+
     }
-
-
 }
 
