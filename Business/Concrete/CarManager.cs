@@ -22,11 +22,11 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal _carDal;
-        ICarImageService _carImageService;
-        public CarManager(ICarDal carDal, ICarImageService carImageService)
+      
+        public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
-            _carImageService = carImageService;
+
         }
         [Authorize(Roles = "car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
@@ -53,18 +53,8 @@ namespace Business.Concrete
 
         public IDataResult<List<CarDetailDto>> GetAllCarDetails()
         {
-            var cars = _carDal.GetAllCarDetails();
-            string path = @"\Images\DefaultImage.png";
-            foreach (var car in cars)
-            {
-                if (car.ImagePath == null)
-                {
-                    car.CarImageId = 0;
-                    car.ImagePath = path;
-                    car.ImageDate = DateTime.Now;
-                }
-            }
-            return new SuccessDataResult<List<CarDetailDto>>(cars, Messages.CarsDetailsListed);
+            
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails(), Messages.CarsDetailsListed);
         }
 
         [ValidationAspect(typeof(CarValidator))]
@@ -76,71 +66,20 @@ namespace Business.Concrete
         }
         public IDataResult<CarDetailDto> GetById(int carId)
         {
-            IResult result = BusinessRules.Run(CheckIfImageExists(carId));
-
-            if (result != null)
-            {
-                var car = _carDal.GetCarDetails(c => c.CarId == carId);
-                string path = @"\Images\DefaultImage.png";
-                car.ImagePath = path;
-                car.ImageDate = DateTime.Now;
-                return new SuccessDataResult<CarDetailDto>(car, Messages.CarImageDefault);
-            }
-
             return new SuccessDataResult<CarDetailDto>(_carDal.GetCarDetails(c => c.CarId == carId), Messages.CarsListed);
         }
 
         public IDataResult<List<CarDetailDto>> GetAllCarDetailsByBrand(int brandId)
         {
-            List<CarDetailDto> carDetailDtos = new List<CarDetailDto>();
-            string path = @"\Images\DefaultImage.png";
-            var cars = _carDal.GetAllCarDetails(c => c.BrandId == brandId);
 
-            foreach (var car in cars)
-            {
-                if (car.ImagePath == null)
-                {
-                    car.CarImageId = 0;
-                    car.ImagePath = path;
-                    car.ImageDate = DateTime.Now;
-                }
-                carDetailDtos.Add(car);
-            }
-            return new SuccessDataResult<List<CarDetailDto>>(carDetailDtos, Messages.CarImagesListed);
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails(c=>c.BrandId==brandId), Messages.CarImagesListed);
 
         }
         public IDataResult<List<CarDetailDto>> GetAllCarDetailsByColor(int colorId)
         {
-            List<CarDetailDto> carDetailDtos = new List<CarDetailDto>();
-            string path = @"\Images\DefaultImage.png";
-            var cars = _carDal.GetAllCarDetails(c => c.ColorId == colorId);
 
-            foreach (var car in cars)
-            {
-                if (car.ImagePath == null)
-                {
-                    car.CarImageId = 0;
-                    car.ImagePath = path;
-                    car.ImageDate = DateTime.Now;
-                }
-                carDetailDtos.Add(car);
-            }
-            return new SuccessDataResult<List<CarDetailDto>>(carDetailDtos, Messages.CarImagesListed);
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails(c => c.ColorId == colorId), Messages.CarImagesListed);
         }
-        private IResult CheckIfImageExists(int carId)
-        {
-
-            var car = _carImageService.GetAllCarImages(carId).Data;
-
-            if (car[0].CarImageId == 0)
-            {
-                return new ErrorResult(Messages.CarImageDefault);
-            }
-
-
-            return new SuccessResult();
-        }
-
 
 
     }

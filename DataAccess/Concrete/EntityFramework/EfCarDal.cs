@@ -18,7 +18,8 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (MyCarDbContext context = new MyCarDbContext())
             {
-
+                
+                string path = @"\Images\DefaultImage.png";
                 var result = from c in context.Cars
                              join b in context.Brands
                              on c.BrandId equals b.BrandId
@@ -36,7 +37,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  DailyPrice = c.DailyPrice,
                                  Description = c.Description,
                                  ModelYear = c.ModelYear,
-                                 ImagePath = (from cI in context.CarImages where cI.CarId == c.CarId select cI.ImagePath).FirstOrDefault()
+                                 ImagePath = (from cI in context.CarImages where cI.CarId == c.CarId select cI.ImagePath).FirstOrDefault() ?? path
 
                              };
 
