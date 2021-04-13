@@ -76,12 +76,15 @@ namespace Business.Concrete
         }
         private IResult CheckIfCarReturn(int carId)
         {
-            var result = _rentalDal.GetAll().Where(r => r.CarId == carId);
-            if (result==null)
+
+            var result = _rentalDal.GetAll().Where(r => r.CarId == carId).ToList();
+
+            if (result.Count==0)
             {
                 return new SuccessResult();
             }
-            else if (result.Where(r=>r.ReturnDate!=null)!=null)
+
+            else if (result.FirstOrDefault(r=>r.ReturnDate!=null)!=null)
             {
                 return new SuccessResult();
             }
