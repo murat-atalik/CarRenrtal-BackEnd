@@ -26,9 +26,9 @@ Project is created with:
 * JWT
 
 ## Setup
-*1- [Change local patch address](https://github.com/murat-atalik/ReCapProject/blob/master/DataAccess/Concrete/EntityFramework/MyCarDbContext.cs)
-*2- [Delete Mıgrations Folder](https://github.com/murat-atalik/ReCapProject/tree/master/DataAccess/Migrations)
-*3- Open Nuget Package Manager Console
-*4- Type add-Migration MigrationName
-*5- update-database
+* 1- [Change local patch address](https://github.com/murat-atalik/ReCapProject/blob/master/DataAccess/Concrete/EntityFramework/MyCarDbContext.cs)
+* 2- [Delete Mıgrations Folder](https://github.com/murat-atalik/ReCapProject/tree/master/DataAccess/Migrations)
+* 3- Open Nuget Package Manager Console
+* 4- Type add-Migration MigrationName
+* 5- update-database
 Follow these steps all setup will be finished.
