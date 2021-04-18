@@ -32,4 +32,4 @@ Project is created with:
 * Type add-Migration MigrationName and press the Enter button.
 If this process was successful, go to the next step. 
 * Type update-database and press the Enter button.
-Follow these steps all setup will be finished.
+* Follow these steps all setup will be finished.
