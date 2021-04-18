@@ -30,6 +30,6 @@ Project is created with:
 * [Delete Mıgrations Folder](https://github.com/murat-atalik/ReCapProject/tree/master/DataAccess/Migrations)
 * Open Nuget Package Manager Console
 * Type add-Migration MigrationName and press the Enter button.
-* If the addition was successful, proceed to the next step.
+If this process was successful, go to the next step. 
 * Type update-database and press the Enter button.
 Follow these steps all setup will be finished.
