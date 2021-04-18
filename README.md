@@ -8,7 +8,7 @@
 ## About Project
 I prepared this project in accordance with its solid principle to improve myself and learn about corporate software architecture.
 This project is the backend part of a car rental system. If you want to look at the frontend part of the car rental system, check the link below. 
-* [FrontEnd](https://github.com/murat-atalik/CarRental-FrontEnd)
+* [Car Rental FrontEnd](https://github.com/murat-atalik/CarRental-FrontEnd)
  ## Built With
 Project is created with:
 * .NET
