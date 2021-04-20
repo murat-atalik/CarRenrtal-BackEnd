@@ -67,6 +67,22 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CreditCards",
+                columns: table => new
+                {
+                    CreditCardId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CardNumber = table.Column<string>(type: "nvarchar(m16)", nullable: true),
+                    ValidDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CardBalance = table.Column<decimal>(type: "decimal(18,0)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CreditCards", x => x.CreditCardId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
@@ -155,6 +171,9 @@ namespace DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Colors");
+
+            migrationBuilder.DropTable(
+                name: "CreditCards");
 
             migrationBuilder.DropTable(
                 name: "Customers");

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MyCarDbContext))]
-    [Migration("20210413102327_InitialMigration")]
+    [Migration("20210418092124_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -163,6 +163,27 @@ namespace DataAccess.Migrations
                     b.HasKey("ColorId");
 
                     b.ToTable("Colors");
+                });
+
+            modelBuilder.Entity("Entities.Concrete.CreditCard", b =>
+                {
+                    b.Property<int>("CreditCardId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CardNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ValidDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("CreditCardId");
+
+                    b.ToTable("CreditCards");
                 });
 
             modelBuilder.Entity("Entities.Concrete.Customer", b =>
