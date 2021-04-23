@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using Entities.Concrete;
 using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
@@ -53,13 +54,17 @@ namespace WebAPI.Controllers
         [HttpPost("add")]
         public IActionResult Add(PaymentDto[] paymentDto)
         {
-            
+            if (paymentDto.Length == 0)
+            {
+                IResult nullCheck = new ErrorResult("Lütfen araç Seçiniz");
+                return Ok(nullCheck);
+            }
             var result = _rentalService.PaymetTransaction(paymentDto);
             if (result.Success)
             {
                 return Ok(result);
             }
-            return Ok(result);
+            return BadRequest(result);
         }
         [HttpPost("delete")]
         public IActionResult GetAll(Rental rental)

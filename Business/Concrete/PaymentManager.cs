@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -18,6 +20,7 @@ namespace Business.Concrete
             _paymentDal = paymentDal;
         }
 
+        [ValidationAspect(typeof(PaymentValidator))]
         public IResult Add(CreditCard creditCard)
         {
             _paymentDal.Add(creditCard);
