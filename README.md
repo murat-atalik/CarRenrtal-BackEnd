@@ -33,6 +33,6 @@ Project is created with:
 If this process was successful, go to the next step. 
 * Type update-database and press the Enter button.
 * Follow these steps all setup will be finished.
-
-# Lisans Bilgileri
-Bu projenin kaynak kodu GPL v3 lisansı üzerinde kullanım geçerliliği bulundurmaktadır. Daha detaylı bilgi için LICENSE dökümanını gözden geçirebilirsiniz.
+* 
+# License Information
+The source code of this project is valid on use under GPL v3 license. For more detailed information, you can review the LICENSE document. 
